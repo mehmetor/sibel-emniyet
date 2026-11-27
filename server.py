@@ -5,8 +5,21 @@
 import http.server, os, pathlib
 
 HERE = pathlib.Path(__file__).parent
-SITE = (HERE / "index.html").read_bytes()
-SOON = (HERE / "yapim.html").read_bytes()
+
+# Umami (analytics.simetri.app). Ana alan adının kimliği aşağıda varsayılan olarak durur; ortam değişkeniyle değiştirilebilir.
+#   UMAMI_WEBSITE_ID       -> ana alan adı (yapım aşamasında sayfası, ileride sitenin kendisi)
+#   UMAMI_DEMO_WEBSITE_ID  -> demo (isteğe bağlı; boşsa demo ölçülmez)
+UMAMI_SRC = os.environ.get("UMAMI_SRC", "https://analytics.simetri.app/script.js")
+
+def page(name, website_id):
+    html = (HERE / name).read_text(encoding="utf-8")
+    website_id = (website_id or "").strip()
+    if website_id:
+        html = html.replace("<style>", '<script defer src="%s" data-website-id="%s"></script>\n<style>' % (UMAMI_SRC, website_id), 1)
+    return html.encode("utf-8")
+
+SITE = page("index.html", os.environ.get("UMAMI_DEMO_WEBSITE_ID"))
+SOON = page("yapim.html", os.environ.get("UMAMI_WEBSITE_ID", "e402c698-6060-4afb-929a-e2515a86f74f"))
 
 class Handler(http.server.BaseHTTPRequestHandler):
     def _send(self, body=True):
