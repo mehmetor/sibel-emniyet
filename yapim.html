@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sibel Emniyet · Yakında</title>
+<meta name="description" content="Sibel Emniyet, Uzm. Psikolojik Danışman – Eğitim Danışmanı. sibelemniyet.com hazırlanıyor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap">
+<style>
+/* Düzen: sayfanın tamamı tek bir gökyüzü. Arkada sabit bir tuval; kaydırdıkça gün ilerler (sabah → öğle → ikindi → gün batımı → gece),
+   rüzgâr her bölümde yön değiştirir, kâğıt uçak okura eşlik eder. İçerik gökyüzünün üstünde, kartsız, 5/7 asimetrik ızgarada durur. */
+:root {
+  color-scheme: light;
+  --ink: #1f2a2c;
+  --muted: #34403f;
+  --line: rgba(31, 42, 44, .2);
+  --pine: #2f5d50;
+  --pine-strong: #234a3f;
+  --on-pine: #ffffff;
+  --amber: #8a4b1c;
+  --veil: rgba(255, 255, 255, .28);
+
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --s2: 8px; --s3: 16px; --s4: 24px; --s5: 40px; --s6: 64px;
+  --gutter: clamp(20px, 4vw, 48px);
+}
+.night {
+  --ink: #f4ecdf;
+  --muted: #cfcbdc;
+  --line: rgba(244, 236, 223, .24);
+  --pine: #9fd0bf;
+  --pine-strong: #b9e0d2;
+  --on-pine: #10231c;
+  --amber: #f2c98a;
+  --veil: rgba(255, 255, 255, .06);
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: #dcefee; color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+#sky { position: fixed; inset: 0; width: 100vw; height: 100lvh; display: block; z-index: 0; }
+.site { position: relative; z-index: 1; overflow-x: clip; }
+.wrap { box-sizing: border-box; width: 100%; max-width: calc(1200px + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+.scene { color: var(--ink); padding-block: clamp(96px, 16vh, 168px); }
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(40px, 7vw, 112px); }
+@media (max-width: 880px) { .split { grid-template-columns: minmax(0, 1fr); } }
+.stack { display: grid; gap: var(--s3); align-content: start; }
+.stack-lg { display: grid; gap: var(--s4); align-content: start; }
+
+/* Tipografi */
+.eyebrow { display: inline-flex; align-items: center; gap: var(--s2); font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: .04em; color: var(--amber); }
+.eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+.h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 4.6vw, 60px); line-height: 1.06; letter-spacing: -.015em; text-wrap: balance; }
+.h2 em, .display em, .statement em { font-style: italic; }
+.h3 { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1.25; }
+.lead { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.6; color: var(--muted); max-width: 52ch; }
+.meta { font-size: 14px; line-height: 20px; color: var(--muted); }
+
+/* Rüzgârda savrulan harfler ve kelimeler */
+.w, .l { display: inline-block; white-space: pre; will-change: transform; }
+.js .w, .js .l { transition: opacity .7s ease; }
+
+/* Düğmeler */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--s4); border-radius: 999px; font: 600 15px/1 var(--sans); text-decoration: none; background: var(--pine); color: var(--on-pine); transition: background-color .15s ease; }
+.btn:hover { background: var(--pine-strong); }
+.btn--sm { min-height: 40px; padding: 0 18px; font-size: 14px; }
+.ghost { font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.ghost:hover { text-decoration-thickness: 2px; }
+
+/* Gezinme */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s4); }
+.wordmark { font-family: var(--serif); font-size: 22px; text-decoration: none; letter-spacing: -.005em; }
+.nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px); font-size: 15px; }
+.nav-links a:not(.btn) { color: var(--muted); text-decoration: none; }
+.nav-links a:not(.btn):hover { color: var(--ink); text-decoration: underline; text-underline-offset: .3em; }
+@media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+
+/* Açılış */
+.hero { position: relative; min-height: 100svh; display: grid; grid-template-rows: auto 1fr; padding-block: 0; }
+.hero-body { display: grid; align-content: center; gap: var(--s4); width: min(100%, 620px); padding-block: clamp(24px, 6vh, 64px) clamp(120px, 24vh, 240px); }
+.display { font-family: var(--serif); font-weight: 300; font-size: clamp(46px, 6.2vw, 88px); line-height: 1; letter-spacing: -.02em; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s4); padding-top: var(--s2); }
+.since { max-width: 44ch; }
+.hint { position: absolute; right: var(--gutter); bottom: 24px; font-size: 13px; line-height: 18px; color: var(--muted); background: rgba(255, 255, 255, .6); padding: 5px 12px; border-radius: 999px; pointer-events: none; }
+@media (hover: none), (max-width: 760px) { .hint { display: none; } }
+
+/* Kimler için */
+.audience { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5) clamp(24px, 4vw, 56px); }
+.audience li { display: grid; gap: 10px; align-content: start; padding-top: var(--s4); border-top: 1px solid var(--line); }
+.audience p { color: var(--muted); }
+@media (max-width: 560px) { .audience { grid-template-columns: minmax(0, 1fr); gap: var(--s4); } }
+
+/* Çalışma alanları */
+.services li { padding-block: 14px 16px; border-bottom: 1px solid var(--line); font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 3.2vw, 42px); line-height: 1.15; letter-spacing: -.01em; transition: translate .45s cubic-bezier(.2, .7, .2, 1); }
+.services li:first-child { border-top: 1px solid var(--line); }
+@media (hover: hover) { .services li:hover { translate: 14px 0; font-style: italic; } }
+.skills-title { font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: .04em; }
+.skills { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); padding-top: var(--s2); }
+.skills li { font-size: 15px; line-height: 22px; color: var(--muted); }
+.skills li:not(:last-child)::after { content: "·"; margin-left: var(--s3); color: var(--line); }
+
+/* Düşünce */
+.thought { min-height: 100svh; display: grid; align-content: center; }
+.statement { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 5vw, 68px); line-height: 1.1; letter-spacing: -.014em; max-width: 22ch; }
+
+/* Hakkımda */
+.photo { display: grid; place-items: center; padding: var(--s4); background: var(--veil); border: 1px dashed var(--muted); border-radius: 10px; text-align: center; }
+.photo--portrait { aspect-ratio: 4 / 5; }
+@media (max-width: 880px) { .split > .photo--portrait { max-width: 340px; width: 100%; box-sizing: border-box; } }
+.photo--wide { aspect-ratio: 3 / 2; }
+.photo figcaption { font-size: 14px; line-height: 20px; color: var(--muted); max-width: 26ch; }
+.about-body { display: grid; gap: var(--s5); align-content: start; }
+.about-body p.body { max-width: 60ch; }
+.timelines { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5) clamp(24px, 4vw, 56px); padding-top: clamp(56px, 7vw, 96px); }
+@media (max-width: 720px) { .timelines { grid-template-columns: minmax(0, 1fr); } }
+.tl-title { font-size: 14px; font-weight: 600; letter-spacing: .04em; padding-bottom: var(--s4); }
+.timeline li { position: relative; display: grid; gap: 2px; padding: 0 0 var(--s4) var(--s4); border-left: 1px solid var(--line); }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: -5px; top: 6px; width: 9px; height: 9px; box-sizing: border-box; border: 1.5px solid var(--muted); border-radius: 50%; background: #e6efe9; }
+.timeline li.now::before { border-color: var(--pine); background: var(--pine); }
+.timeline .yrs { font-size: 14px; line-height: 20px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline .org { font-weight: 600; line-height: 1.45; }
+.timeline .role { font-size: 15px; line-height: 1.45; color: var(--muted); }
+
+/* Masanın dışında */
+.interests li { padding-block: 12px; border-bottom: 1px solid var(--line); font-size: 18px; }
+.interests li:first-child { border-top: 1px solid var(--line); }
+.frames { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); padding-top: clamp(48px, 6vw, 80px); }
+.frames figure:first-child { grid-column: span 2; }
+@media (max-width: 720px) { .frames { grid-template-columns: minmax(0, 1fr); } .frames figure:first-child { grid-column: auto; } }
+
+/* Misty: güneşin oturduğu yuva ve uygulama ekranları */
+.orb-row { display: flex; align-items: center; gap: var(--s4); min-height: var(--orb); --orb: clamp(84px, 9vw, 124px); }
+.orb-slot { width: var(--orb); height: var(--orb); border-radius: 50%; flex: none; }
+.no-sky .orb-slot { background: radial-gradient(circle at 43.75% 40.5%, #fffcf7 0%, #fbeeda 18%, #f1cd9d 42%, #e8b87a 69%, #cb9455 84%, #b07638 100%); box-shadow: 0 0 32px rgba(232, 184, 122, .5); }
+.orb-name { display: grid; font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3vw, 38px); line-height: 1.1; }
+.orb-name small { font-family: var(--sans); font-size: 14px; line-height: 20px; color: var(--muted); }
+.phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 22px); align-items: start; align-self: center; }
+.phone { border-radius: clamp(18px, 2.4vw, 32px); padding: clamp(4px, .5vw, 7px); background: #2b2f3a; box-shadow: 0 24px 48px -18px rgba(60, 40, 20, .45); }
+.phone img { display: block; width: 100%; height: auto; border-radius: clamp(14px, 2vw, 26px); background: #0a0b10; }
+.phone--l { rotate: -4deg; margin-top: 18%; }
+.phone--r { rotate: 4deg; margin-top: 18%; }
+.phone--c { z-index: 1; }
+
+/* Gün batımı arası: yalnızca gökyüzü */
+.dusk { height: 90svh; }
+
+/* İletişim */
+.contact { padding-bottom: 0; }
+.contact dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--s3) var(--s5); font-size: 18px; }
+.contact dt { color: var(--muted); font-size: 15px; padding-top: 2px; }
+.contact dd { min-width: 0; overflow-wrap: anywhere; }
+.ph { color: var(--muted); font-style: italic; }
+.privacy { padding-top: var(--s4); border-top: 1px solid var(--line); max-width: 52ch; }
+.footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s3); padding-block: var(--s5); margin-top: clamp(120px, 26vh, 260px); }
+
+/* Rüzgâr gülü */
+.vane { position: fixed; left: 16px; bottom: 16px; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border-radius: 999px; background: rgba(255, 255, 255, .62); color: #1f2a2c; font-size: 13px; line-height: 18px; font-weight: 500; pointer-events: none; transition: background-color .6s ease, color .6s ease; }
+.vane svg { width: 34px; height: 34px; display: block; }
+.vane .ring { fill: none; stroke: currentColor; stroke-opacity: .35; }
+.vane .tick { stroke: currentColor; stroke-opacity: .6; stroke-linecap: round; }
+.vane #needle { transform-origin: 20px 20px; }
+.vane #needle path { fill: #2f5d50; }
+.is-night .vane { background: rgba(16, 22, 48, .6); color: #f4ecdf; }
+.is-night .vane #needle path { fill: #9fd0bf; }
+@media (max-width: 700px) { .vane { left: 10px; bottom: 10px; padding: 5px; } .vane span { display: none; } }
+
+/* Kaydırmaya bağlı: satırlar rüzgârla yerine oturur */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .audience li, .services li, .timeline li, .interests li, .photo, .phone {
+      animation: settle linear both; animation-timeline: view(); animation-range: entry 5% entry 70%;
+    }
+    /* Misty: içerik sisin içinden netleşerek çıkar */
+    .misty .phones, .misty .stack-lg > :not(.orb-row) { animation: unveil linear both; animation-timeline: view(); animation-range: entry 0% entry 85%; }
+    @keyframes unveil { from { opacity: 0; filter: blur(16px); } 60% { opacity: .7; filter: blur(6px); } to { opacity: 1; filter: none; } }
+    @keyframes settle { from { opacity: 0; transform: translateX(-36px) skewX(6deg); } to { opacity: 1; transform: none; } }
+  }
+}
+</style>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div class="vane" aria-hidden="true">
+  <svg viewBox="0 0 40 40">
+    <circle class="ring" cx="20" cy="20" r="17.5"/>
+    <path class="tick" d="M20 1.5v4M20 34.5v4M1.5 20h4M34.5 20h4"/>
+    <g id="needle"><path d="M32 20 21 15.5 23.5 19H8v2h15.5L21 24.5z"/></g>
+  </svg>
+  <span id="vane-name">Günbatısı esiyor</span>
+</div>
+
+<div class="site">
+
+<!-- AÇILIŞ: sabah, Uludağ -->
+<header class="scene hero" id="ust" data-sky="3.45" data-wind="0" data-speed="1" data-home=".72,.34">
+  <div class="wrap">
+    <nav class="nav" aria-label="Ana menü">
+      <a class="wordmark" href="#ust">Sibel Emniyet</a>
+      <div class="nav-links">
+        <a class="btn btn--sm" href="https://www.linkedin.com/in/sibelemniyet/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="hero-body">
+      <p class="eyebrow">Uzm. Psikolojik Danışman · Eğitim Danışmanı · Bursa</p>
+      <h1 class="display" data-flutter="letters">Gün ağarıyor. <em>Site yolda.</em></h1>
+      <p class="lead">sibelemniyet.com hazırlanıyor. Çok yakında burada olacak.</p>
+      <div class="hero-actions">
+        <a class="ghost" href="https://www.linkedin.com/in/sibelemniyet/" target="_blank" rel="noopener">O zamana dek LinkedIn'den ulaşabilirsiniz</a>
+      </div>
+    </div>
+  </div>
+  <span class="hint" aria-hidden="true">Fareyle rüzgârı bozun · tıklayın, karahindiba uçsun</span>
+</header>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var root = document.documentElement;
+  root.classList.add('js');
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function smooth(a, b, x) { var t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); }
+  function angDiff(a, b) { var d = a - b; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; return d; }
+  function hex(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+  function mix(a, b, t) { return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)]; }
+  function rgb(c, a) { return 'rgba(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ',' + (a === undefined ? 1 : a) + ')'; }
+  /* anahtar karelerden değer: keys = [[s, ...değerler]] */
+  function track(keys, s) {
+    if (s <= keys[0][0]) return keys[0].slice(1);
+    for (var i = 1; i < keys.length; i++) {
+      if (s <= keys[i][0]) { var a = keys[i - 1], b = keys[i], d = b[0] - a[0], t = d > 0 ? (s - a[0]) / d : 1, out = []; for (var k = 1; k < a.length; k++) out.push(lerp(a[k], b[k], t)); return out; }
+    }
+    return keys[keys.length - 1].slice(1);
+  }
+  function seeded(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+
+  var canvas = document.getElementById('sky'), ctx = canvas.getContext('2d');
+  var needle = document.getElementById('needle'), vaneName = document.getElementById('vane-name');
+  var W = 1, H = 1, dpr = 1, narrow = false, time = 0;
+  var sY = 0, sV = 0, docH = 1, skyS = 0, night = 0;
+
+  /* ---------- Günün saatleri: 0 sabah · 1 öğle · 2 ikindi · 3 altın saat · 4 alacakaranlık · 5 gece ---------- */
+  var SKY = [
+    ['#a9d6e6', '#dcefee', '#fbf1de'],
+    ['#7cc1e6', '#c2e3f1', '#eef6ef'],
+    ['#93c7e0', '#d8e9e2', '#fdebcb'],
+    ['#9bbad4', '#f3d0a8', '#f7b07a'],
+    ['#2c2f63', '#84527f', '#e98d5c'],
+    ['#0b1230', '#18234a', '#2b3760']
+  ].map(function (r) { return r.map(hex); });
+  var SUN_POS = [[0, .86, .2], [1.2, .6, .09], [2.3, .5, .13], [3, .37, .56], [3.8, .3, .78], [4.5, .24, 1.08]];
+  var SUN_COL = [[0, 255, 214, 107], [2.3, 255, 208, 96], [3, 255, 176, 72], [3.9, 255, 112, 58]];
+  var CLOUD_COL = [[0, 255, 255, 255, .85], [2.4, 255, 255, 255, .85], [3.1, 255, 226, 198, .8], [4, 236, 150, 128, .5], [5, 120, 135, 190, .16]];
+  var LAND_DAY = { mount: '#c2d7dd', snow: '#f6fbfc', far: '#a3cf92', near: '#73b07c', tree: '#4f8f62' };
+  var LAND_NIGHT = { mount: '#222a55', snow: '#7f8fc4', far: '#151c40', near: '#0d1330', tree: '#080d24' };
+  function skyColors(s) { var i = clamp(Math.floor(s), 0, SKY.length - 2), t = clamp(s - i, 0, 1); return [mix(SKY[i][0], SKY[i + 1][0], t), mix(SKY[i][1], SKY[i + 1][1], t), mix(SKY[i][2], SKY[i + 1][2], t)]; }
+
+  /* ---------- Bölümler: gökyüzü, rüzgâr ve uçağın yeri ---------- */
+  var WINDS = ['Yıldız', 'Poyraz', 'Gündoğusu', 'Keşişleme', 'Kıble', 'Lodos', 'Günbatısı', 'Karayel'];
+  var scenes = Array.prototype.map.call(document.querySelectorAll('[data-sky]'), function (el) {
+    var h = (el.getAttribute('data-home') || '.7,.4').split(',');
+    return { el: el, sky: +el.getAttribute('data-sky'), lead: el.hasAttribute('data-lead') ? +el.getAttribute('data-lead') : .35,
+      wind: (+el.getAttribute('data-wind') || 0) * Math.PI / 180, speed: +el.getAttribute('data-speed') || 1, hx: +h[0], hy: +h[1], top: 0, bottom: 0 };
+  });
+  var anchors = [[0, 0]], active = -1;
+  /* Misty: güneşin oturacağı yuva ve sis */
+  var orbEl = document.getElementById('orb'), orb = { x: 0, py: -1e6, r: 50 }, dock = 0, fog = 0, fogs = [], fogSprite = null;
+  var ORB = [[0, '#fffcf7'], [.07, '#fffbf5'], [.18, '#fbeeda'], [.3, '#f6dbb5'], [.42, '#f1cd9d'], [.55, '#edc48d'], [.69, '#e8b87a'], [.77, '#d9a667'], [.88, '#c58d4e'], [1, '#b07638']];
+  var wind = { ang: 0, sp: 1, tAng: 0, tSp: 1 };
+  var home = { x: 0, y: 0 };
+  var ptr = { x: 0, y: 0, vx: 0, vy: 0, on: false }, WX = 0, WY = 0;
+  var plane = null, wob = 0, gx = 0, gy = 0, trail = [], trailAcc = 0;
+  var streaks = [], seeds = [], clouds = [], stars = [];
+  var bits = [], groups = [];
+
+  function measure() {
+    var vh = window.innerHeight; docH = Math.max(root.scrollHeight, vh + 1);
+    anchors = [];
+    scenes.forEach(function (sc) {
+      var r = sc.el.getBoundingClientRect();
+      sc.top = r.top + window.scrollY; sc.bottom = sc.top + r.height;
+      var a = sc.top + sc.lead * vh, b = Math.max(a, sc.bottom - .35 * vh);
+      anchors.push([a, sc.sky], [b, sc.sky]);
+    });
+    if (orbEl) { var or = orbEl.getBoundingClientRect(); orb.x = or.left + or.width / 2; orb.py = or.top + window.scrollY + or.height / 2; orb.r = or.width / 2; }
+    measureBits();
+  }
+  function setHome(sc) { home.x = (narrow ? .78 : sc.hx) * W; home.y = (narrow ? .16 : sc.hy) * H; }
+  function locate() {
+    var vh = window.innerHeight, probe = sY + vh * .5;
+    skyS = track(anchors, probe)[0];
+    night = smooth(3.3, 4.7, skyS);
+    var a = 0;
+    for (var i = 0; i < scenes.length; i++) if (scenes[i].top <= probe) a = i;
+    if (a !== active) {
+      var first = active < 0; active = a;
+      var sc = scenes[a]; wind.tAng = sc.wind; wind.tSp = sc.speed; setHome(sc);
+      if (first) { wind.ang = wind.tAng; wind.sp = wind.tSp; } else wob = Math.min(1.3, wob + .9);
+    }
+    root.classList.toggle('is-night', skyS > 4.1);
+  }
+  function updateVane() {
+    var a = wind.ang, calm = wind.sp < .3;
+    var from = Math.atan2(Math.cos(a), -Math.sin(a)) + Math.PI;
+    var idx = ((Math.round(from / (Math.PI / 4)) % 8) + 8) % 8;
+    var label = calm ? 'Rüzgâr dindi' : WINDS[idx] + ' esiyor';
+    if (vaneName.textContent !== label) vaneName.textContent = label;
+    var wig = calm ? 0 : Math.sin(time * 2.3) * 4 + clamp(Math.hypot(ptr.vx, ptr.vy) * .004, 0, 10) * Math.sin(time * 17);
+    needle.style.transform = 'rotate(' + (a * 180 / Math.PI + wig).toFixed(1) + 'deg) scale(' + (calm ? .6 : 1) + ')';
+  }
+
+  /* ---------- Manzara: Uludağ ve tepeler (gündüz ve gece katmanı) ---------- */
+  var landDay = document.createElement('canvas'), landNight = document.createElement('canvas'), lights = [];
+  function hillY(base, parts, x) { var y = base; for (var i = 0; i < parts.length; i++) y -= parts[i][0] * Math.sin(x * parts[i][1] + parts[i][2]); return y; }
+  function hills() {
+    return [
+      { base: H * .86, parts: [[H * .05, 5 / W, 1], [H * .025, 13 / W, .3]] },
+      { base: H * .95, parts: [[H * .045, 3.2 / W, 2], [H * .02, 9 / W, 4]] }
+    ];
+  }
+  function paintLand(layer, pal) {
+    layer.width = Math.round(W * dpr); layer.height = Math.round(H * dpr);
+    var c = layer.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var base = H * .82, peakX = W * (narrow ? .55 : .66), peakH = H * .2, x;
+    function mY(x) { var u = (x - peakX) / (W * .17); return base - peakH * Math.exp(-u * u) - H * .03 * Math.exp(-Math.pow((x - W * .36) / (W * .09), 2)) - H * .008 * Math.sin(x * .05) - H * .005 * Math.sin(x * .13); }
+    c.beginPath(); c.moveTo(0, H);
+    for (x = 0; x <= W; x += 3) c.lineTo(x, mY(x));
+    c.lineTo(W, H); c.closePath(); c.fillStyle = pal.mount; c.fill();
+    c.save(); c.clip();
+    var snowLine = base - peakH * .7;
+    c.beginPath(); c.moveTo(0, 0); c.lineTo(W, 0);
+    for (x = W; x >= 0; x -= 6) c.lineTo(x, snowLine + Math.sin(x * .09) * 6 + Math.sin(x * .23) * 4);
+    c.closePath(); c.fillStyle = pal.snow; c.fill();
+    c.restore();
+    hills().forEach(function (h, i) {
+      c.beginPath(); c.moveTo(0, H);
+      for (var x = 0; x <= W; x += 3) c.lineTo(x, hillY(h.base, h.parts, x));
+      c.lineTo(W, H); c.closePath(); c.fillStyle = i ? pal.near : pal.far; c.fill();
+      if (i === 1) {
+        c.fillStyle = pal.tree;
+        var n = narrow ? 14 : 26;
+        for (var k = 0; k < n; k++) {
+          var tx = (k + .5) / n * W + Math.sin(k * 7.3) * 14, ty = hillY(h.base, h.parts, tx) + 3, th = 10 + (k % 3) * 5;
+          c.beginPath(); c.moveTo(tx, ty - th); c.quadraticCurveTo(tx + th * .42, ty - th * .2, tx + th * .3, ty); c.lineTo(tx - th * .3, ty); c.quadraticCurveTo(tx - th * .42, ty - th * .2, tx, ty - th); c.fill();
+        }
+      }
+    });
+  }
+  function buildLights() {
+    var r = seeded(77), hs = hills(); lights = [];
+    for (var i = 0; i < (narrow ? 26 : 60); i++) {
+      var far = r() < .65, h = hs[far ? 0 : 1], x = r() * W;
+      lights.push({ x: x, y: hillY(h.base, h.parts, x) + 6 + r() * (far ? H * .05 : H * .03), ph: r() * 6.28, s: far ? 1 : 1.4 });
+    }
+  }
+
+  /* ---------- Rüzgâr alanı ---------- */
+  function windAt(x, y) {
+    var ca = Math.cos(wind.ang), sa = Math.sin(wind.ang);
+    var along = x * ca + y * sa, across = y * ca - x * sa;
+    var a = wind.ang + .34 * Math.sin(along * .006 + time * .45) + .22 * Math.sin(across * .011 - time * .3);
+    var sp = 36 * wind.sp * (1 + .3 * Math.sin(across * .012 + time * .4));
+    WX = Math.cos(a) * sp; WY = Math.sin(a) * sp;
+    if (ptr.on) {
+      var dx = x - ptr.x, dy = y - ptr.y, d2 = dx * dx + dy * dy;
+      if (d2 < 32400) { var f = 1 - Math.sqrt(d2) / 180; WX += ptr.vx * .35 * f; WY += ptr.vy * .35 * f; }
+    }
+  }
+
+  /* ---------- Sahne nesneleri ---------- */
+  function wrap(v, lo, hi) { var r = hi - lo; return ((v - lo) % r + r) % r + lo; }
+  function build() {
+    var r = seeded(9), i;
+    streaks = []; seeds = []; clouds = []; stars = [];
+    for (i = 0; i < (narrow ? 14 : 30); i++) streaks.push({ x: r() * W, y: r() * H, sp: .7 + r() * .8, pts: [] });
+    for (i = 0; i < (narrow ? 6 : 11); i++) seeds.push({ x: r() * W, y: r() * H, ph: r() * 6.28, s: .8 + r() * .5, vx: 0, vy: 0, life: -1 });
+    for (i = 0; i < (narrow ? 4 : 7); i++) clouds.push({ x: r() * W, y0: r(), s: .6 + r() * .9, z: r() });
+    for (i = 0; i < (narrow ? 70 : 150); i++) stars.push({ x: r(), y: r() * .8, s: .6 + r() * 1.2, ph: r() * 6.28 });
+    clouds.sort(function (a, b) { return a.z - b.z; });
+    var fr = seeded(77); fogs = [];
+    for (var fi = 0; fi < 24; fi++) fogs.push({ x: fr(), y: .04 + fr() * .96, s: .55 + fr() * .6, v: .5 + fr(), a: .5 + fr() * .45, ph: fr() * 6.28 });
+    if (!fogSprite) {
+      fogSprite = document.createElement('canvas'); fogSprite.width = fogSprite.height = 256;
+      var fc = fogSprite.getContext('2d'), fg = fc.createRadialGradient(128, 128, 0, 128, 128, 128);
+      fg.addColorStop(0, 'rgba(255,250,242,.95)'); fg.addColorStop(.45, 'rgba(255,250,242,.5)'); fg.addColorStop(1, 'rgba(255,250,242,0)');
+      fc.fillStyle = fg; fc.fillRect(0, 0, 256, 256);
+    }
+  }
+  function puff(x, y) {
+    for (var i = 0; i < 9; i++) {
+      var a = Math.random() * 6.283, v = 40 + Math.random() * 110;
+      seeds.push({ x: x, y: y, ph: Math.random() * 6.28, s: .8 + Math.random() * .6, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 40, life: 16 });
+    }
+    while (seeds.length > 90) seeds.splice(narrow ? 6 : 11, 1);
+  }
+
+  function resize() {
+    var w = window.innerWidth, h = Math.max(window.innerHeight, canvas.clientHeight || 0);
+    if (plane && Math.abs(w - W) < 1 && Math.abs(h - H) < 130) return;
+    var fx = w / W, fy = h / H, first = !plane;
+    W = w; H = h; narrow = W < 700;
+    dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(3.2e6 / (W * H)));
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    paintLand(landDay, LAND_DAY); paintLand(landNight, LAND_NIGHT); buildLights(); build();
+    measure(); if (active >= 0) setHome(scenes[active]);
+    if (first) { sY = window.scrollY; locate(); plane = { x: home.x - W * .12, y: home.y + H * .08, h: -.4, w: .5, bank: 0 }; }
+    else { plane.x *= fx; plane.y *= fy; trail = []; }
+  }
+
+  function step(dt) {
+    /* rüzgâr hedefe doğru döner */
+    wind.ang += angDiff(wind.tAng, wind.ang) * Math.min(1, dt * .9);
+    wind.sp += (wind.tSp - wind.sp) * Math.min(1, dt * .9);
+
+    /* uçak: evinin çevresinde geniş daireler çizer, rüzgârla sürüklenir, uzaklaşınca geri döner */
+    var p = plane, dx = home.x - p.x, dy = home.y - p.y, dist = Math.hypot(dx, dy);
+    var pull = clamp((dist - W * .07) / (W * .16), 0, 1);
+    var turn = narrow ? .95 : .62;
+    var targetW = turn * (1 - pull) + angDiff(Math.atan2(dy, dx), p.h) * 1.5 * pull;
+    p.w += (targetW - p.w) * Math.min(1, dt * 1.3);
+    p.h += p.w * dt;
+    var v = (narrow ? 58 : 92) * (1 + .12 * Math.sin(time * .9)) * (1 + pull * 1.9);
+    windAt(p.x, p.y);
+    p.x += (Math.cos(p.h) * v + WX * .35 + gx) * dt;
+    p.y += (Math.sin(p.h) * v + WY * .35 + gy + 7 * Math.sin(time * .9 + 1)) * dt;
+    var k = Math.exp(-dt * 1.4); gx *= k; gy *= k;
+    wob = Math.min(1.3, wob * Math.exp(-dt * .9) + Math.abs(sV) * .0007 * dt);
+    p.bank += (clamp(p.w * .8, -.85, .85) - p.bank) * Math.min(1, dt * 3);
+    trailAcc += dt;
+    if (trailAcc > .06) { trailAcc = 0; trail.push(p.x, p.y); if (trail.length > 150) trail.splice(0, 2); }
+    /* kaydırınca iz de sayfayla birlikte kayar */
+    var i, k2, drift = -sV * dt * .5;
+    if (drift) for (i = 1; i < trail.length; i += 2) trail[i] += drift;
+
+    for (i = 0; i < streaks.length; i++) {
+      var s = streaks[i]; windAt(s.x, s.y);
+      /* kaydırma, çizgileri kırmadan bütün olarak taşır */
+      if (drift) { s.y += drift * .7; for (k2 = 1; k2 < s.pts.length; k2 += 2) s.pts[k2] += drift * .7; }
+      s.x += WX * s.sp * 1.6 * dt; s.y += WY * s.sp * 1.6 * dt;
+      s.pts.push(s.x, s.y); if (s.pts.length > 34) s.pts.splice(0, 2);
+      if (s.x > W + 60 || s.x < -60 || s.y < -60 || s.y > H + 60) { s.x = wrap(s.x, -60, W + 60); s.y = wrap(s.y, -60, H + 60); s.pts.length = 0; }
+    }
+    for (i = seeds.length - 1; i >= 0; i--) {
+      var sd = seeds[i]; windAt(sd.x, sd.y);
+      sd.x += (WX * .55 + sd.vx) * dt; sd.y += drift * .9 + (WY * .5 + sd.vy + Math.sin(time * 1.3 + sd.ph) * 6 + (sd.life > 0 ? 9 : 0)) * dt;
+      var kd = Math.exp(-dt * 1.6); sd.vx *= kd; sd.vy *= kd;
+      if (sd.life > 0) { sd.life -= dt; if (sd.life <= 0 || sd.x < -40 || sd.x > W + 40 || sd.y < -40 || sd.y > H + 40) seeds.splice(i, 1); }
+      else { sd.x = wrap(sd.x, -20, W + 20); sd.y = wrap(sd.y, -20, H + 20); }
+    }
+    for (i = 0; i < clouds.length; i++) clouds[i].x = wrap(clouds[i].x + WX * (.12 + clouds[i].z * .14) * dt, -160, W + 160);
+  }
+
+  /* ---------- Çizim ---------- */
+  function drawCloud(c, x, y, s) {
+    c.beginPath();
+    c.arc(x, y, 22 * s, 0, 6.283); c.arc(x + 26 * s, y - 10 * s, 28 * s, 0, 6.283); c.arc(x + 56 * s, y, 22 * s, 0, 6.283); c.arc(x + 28 * s, y + 6 * s, 24 * s, 0, 6.283);
+    c.fill();
+  }
+  function drawSeed(c, sd, stem, fluff) {
+    var a = sd.life < 0 ? 1 : clamp(sd.life / 3, 0, 1);
+    c.save(); c.globalAlpha = a; c.translate(sd.x, sd.y); c.rotate(Math.sin(time * 1.1 + sd.ph) * .25 + clamp(WX * .004, -.5, .5)); c.scale(sd.s, sd.s);
+    c.strokeStyle = stem; c.lineWidth = .8;
+    c.beginPath(); c.moveTo(0, 0); c.lineTo(-2, 9); c.stroke();
+    c.strokeStyle = fluff; c.lineWidth = .9; c.beginPath();
+    for (var i = 0; i < 9; i++) { var an = -Math.PI / 2 + (i - 4) * .33; c.moveTo(0, 0); c.lineTo(Math.cos(an) * 8, Math.sin(an) * 8); }
+    c.stroke();
+    c.fillStyle = stem; c.beginPath(); c.arc(-2, 9.5, 1.3, 0, 6.283); c.fill();
+    c.restore();
+  }
+  function drawPlane(c, x, y, h, bank, s) {
+    c.save(); c.translate(x, y); c.rotate(h); c.scale(s, s);
+    var wl = 19 * (1 - .5 * bank), wr = 19 * (1 + .5 * bank), N = 30, T = -22;
+    var lit = rgb(mix([255, 255, 255], [214, 222, 246], night)), shade = rgb(mix([223, 231, 234], [150, 162, 204], night)), keel = rgb(mix([195, 208, 212], [112, 124, 170], night));
+    c.lineJoin = 'round';
+    c.fillStyle = bank > 0 ? shade : lit;
+    c.beginPath(); c.moveTo(N, 0); c.lineTo(T - 4, -wl); c.lineTo(T + 5, 0); c.closePath(); c.fill();
+    c.fillStyle = bank > 0 ? lit : shade;
+    c.beginPath(); c.moveTo(N, 0); c.lineTo(T - 4, wr); c.lineTo(T + 5, 0); c.closePath(); c.fill();
+    c.fillStyle = keel;
+    c.beginPath(); c.moveTo(N, 0); c.lineTo(T + 5, 0); c.lineTo(T + 2, 4.5 * bank + (bank >= 0 ? 1.2 : -1.2)); c.closePath(); c.fill();
+    c.strokeStyle = 'rgba(31,42,44,' + lerp(.28, .5, night) + ')'; c.lineWidth = .8 / s;
+    c.beginPath(); c.moveTo(N, 0); c.lineTo(T - 4, -wl); c.lineTo(T + 5, 0); c.lineTo(T - 4, wr); c.closePath(); c.stroke();
+    c.beginPath(); c.moveTo(N, 0); c.lineTo(T + 5, 0); c.stroke();
+    c.restore();
+  }
+
+  function draw() {
+    var c = ctx, i, k;
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    /* gökyüzü */
+    var sc = skyColors(skyS), g = c.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, rgb(sc[0])); g.addColorStop(.48, rgb(sc[1])); g.addColorStop(1, rgb(sc[2]));
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+
+    /* yıldızlar ve ay */
+    var na = smooth(4, 5, skyS);
+    if (na > .01) {
+      c.fillStyle = '#fff';
+      for (i = 0; i < stars.length; i++) {
+        var st = stars[i]; c.globalAlpha = na * (.35 + .65 * (.5 + .5 * Math.sin(time * (.6 + st.s * .5) + st.ph)));
+        c.fillRect(st.x * W, st.y * H, st.s, st.s);
+      }
+      c.globalAlpha = na;
+      var mx = W * (narrow ? .78 : .84), my = H * .17, mr = Math.min(W, H) * .034;
+      var mg = c.createRadialGradient(mx, my, 0, mx, my, mr * 5);
+      mg.addColorStop(0, 'rgba(240,236,216,.22)'); mg.addColorStop(1, 'rgba(240,236,216,0)');
+      c.fillStyle = mg; c.fillRect(mx - mr * 5, my - mr * 5, mr * 10, mr * 10);
+      c.fillStyle = '#f3ecd8'; c.beginPath(); c.arc(mx, my, mr, -Math.PI / 2, Math.PI / 2); c.ellipse(mx, my, mr * .42, mr, 0, Math.PI / 2, -Math.PI / 2, true); c.fill();
+      c.globalAlpha = 1;
+    }
+
+    /* güneş: kaydırdıkça gökte yol alır, batarken büyür ve kızarır */
+    var sp = track(SUN_POS, skyS), sx = W * (narrow ? lerp(.5, sp[0], .8) : sp[0]), sy = H * sp[1];
+    /* Misty yuvası ekrana girerken sis basar; yuva yükseldikçe rüzgâr sisi dağıtır ve güneş yuvaya oturur */
+    var oy = orb.py - window.scrollY;
+    fog = smooth(H * 1.9, H * 1.15, oy) * (1 - smooth(H * .92, H * .42, oy));
+    dock = smooth(H * .98, H * .62, oy) * smooth(-H * .65, -H * .22, oy); /* yuva ekrandan tamamen çıkana dek güneş yerinde kalır */
+    var low = smooth(2.6, 3.9, skyS), sr = Math.min(W, H) * .06 * (1 + low * .7), scol = track(SUN_COL, skyS);
+    if (dock > 0) { sx = lerp(sx, orb.x, dock); sy = lerp(sy, oy, dock); sr = lerp(sr, orb.r, dock); scol = mix(scol, [232, 184, 122], dock); }
+    if (sy < H * 1.07) {
+      var glow = 1 - dock * .45, sg = c.createRadialGradient(sx, sy, 0, sx, sy, sr * 6);
+      sg.addColorStop(0, rgb(scol, (.75 * glow).toFixed(3))); sg.addColorStop(.25, rgb(scol, ((.25 + low * .12) * glow).toFixed(3))); sg.addColorStop(1, rgb(scol, 0));
+      c.fillStyle = sg; c.fillRect(sx - sr * 6, sy - sr * 6, sr * 12, sr * 12);
+      c.fillStyle = rgb(scol); c.beginPath(); c.arc(sx, sy, sr, 0, 6.283); c.fill();
+      /* Misty küresi: sol üstten ışık alan sedef küre. Gün boyu hafifçe sezilir, yuvada tam belirir. */
+      var hx = sx - sr * .125, hy = sy - sr * .19, og = c.createRadialGradient(hx, hy, 0, hx, hy, sr * 1.25);
+      for (k = 0; k < ORB.length; k++) og.addColorStop(ORB[k][0], ORB[k][1]);
+      c.globalAlpha = clamp(.22 * (1 - low) + dock, 0, 1); c.fillStyle = og; c.beginPath(); c.arc(sx, sy, sr, 0, 6.283); c.fill(); c.globalAlpha = 1;
+    }
+
+    /* bulutlar: derinliğe göre farklı hızda yükselir */
+    var cc = track(CLOUD_COL, skyS), span = H + 320;
+    c.fillStyle = rgb(cc, cc[3].toFixed(3));
+    for (i = 0; i < clouds.length; i++) {
+      var cl = clouds[i], cy = wrap(cl.y0 * span - sY * (.12 + cl.z * .4), 0, span) - 160;
+      drawCloud(c, cl.x, cy, cl.s * (narrow ? .7 : 1) * (.7 + cl.z * .6));
+    }
+
+    /* manzara: sayfanın başında alçalır, sonunda geceyle birlikte yeniden yükselir */
+    var shift = Math.min(sY, Math.max(0, docH - sY - window.innerHeight)) * .5;
+    if (shift < H * .45) {
+      if (night < .995) { c.globalAlpha = 1; c.drawImage(landDay, 0, shift, W, H); }
+      if (night > .005) { c.globalAlpha = night; c.drawImage(landNight, 0, shift, W, H); }
+      c.globalAlpha = 1;
+      if (night > .3) {
+        for (i = 0; i < lights.length; i++) {
+          var L = lights[i]; c.fillStyle = 'rgba(255,205,130,' + ((night - .3) / .7 * (.55 + .45 * Math.sin(time * 1.7 + L.ph))).toFixed(3) + ')';
+          c.fillRect(L.x, L.y + shift, 1.6 * L.s, 1.6 * L.s);
+        }
+      }
+    }
+
+    /* sis: yumuşak öbekler rüzgâr yönünde sürüklenir, dağılırken hızlanıp açılır */
+    if (fog > .004 && fogSprite) {
+      var clr = smooth(H * .92, H * .42, oy), fdx = Math.cos(wind.ang), fdy = Math.sin(wind.ang);
+      for (i = 0; i < fogs.length; i++) {
+        var f = fogs[i], fs = f.s * Math.max(W, H) * (1 + clr * .5);
+        var fx = wrap(f.x * W + (time * f.v * 26 + clr * W * .7 * f.v) * fdx, -fs * .5, W + fs * .5), fy = f.y * H + (time * f.v * 10 + clr * H * .3) * fdy * .4 + Math.sin(time * .2 + f.ph) * 14;
+        c.globalAlpha = fog * f.a; c.drawImage(fogSprite, fx - fs / 2, fy - fs * .3, fs, fs * .6);
+      }
+      c.globalAlpha = 1;
+    }
+
+    /* rüzgâr çizgileri */
+    c.lineCap = 'round'; c.lineWidth = 1.3;
+    c.strokeStyle = rgb(mix([255, 255, 255], [200, 214, 255], night), (lerp(.6, .22, night) * clamp(.35 + wind.sp * .65, 0, 1)).toFixed(3));
+    c.beginPath();
+    for (i = 0; i < streaks.length; i++) {
+      var pts = streaks[i].pts; if (pts.length < 6) continue;
+      c.moveTo(pts[0], pts[1]);
+      for (k = 2; k < pts.length; k += 2) c.lineTo(pts[k], pts[k + 1]);
+    }
+    c.stroke();
+
+    var stem = rgb(mix([70, 95, 100], [190, 200, 230], night), .55), fluff = rgb([255, 255, 255], lerp(.95, .7, night).toFixed(3));
+    for (i = 0; i < seeds.length; i++) { windAt(seeds[i].x, seeds[i].y); drawSeed(c, seeds[i], stem, fluff); }
+
+    /* uçağın izi ve uçak */
+    if (trail.length > 4) {
+      c.setLineDash([3, 7]); c.strokeStyle = rgb(mix([47, 93, 80], [200, 220, 240], night), .34); c.lineWidth = 1.2;
+      c.beginPath(); c.moveTo(trail[0], trail[1]);
+      for (i = 2; i < trail.length; i += 2) c.lineTo(trail[i], trail[i + 1]);
+      c.lineTo(plane.x, plane.y); c.stroke(); c.setLineDash([]);
+    }
+    var ps = (narrow ? 1 : 1.5) * (1 + .06 * Math.sin(time * .9));
+    var bankVis = clamp(plane.bank + wob * .7 * Math.sin(time * 11), -1, 1), hVis = plane.h + wob * .18 * Math.sin(time * 7 + 1);
+    drawPlane(c, plane.x, plane.y, hVis, bankVis, ps);
+  }
+
+  /* ---------- Rüzgârda savrulan yazı ---------- */
+  function apply(b) { b.el.style.transform = 'translate(' + b.x.toFixed(2) + 'px,' + b.y.toFixed(2) + 'px) rotate(' + b.r.toFixed(2) + 'deg)'; b.dirty = true; }
+  function splitEl(el) {
+    var letters = el.getAttribute('data-flutter') === 'letters';
+    var group = { el: el, bits: [], vis: false, gust: letters || el.hasAttribute('data-gust'), letters: letters, released: REDUCE };
+    var label = el.textContent.replace(/\s+/g, ' ').trim(), rnd = seeded(31 + groups.length * 7);
+    function add(span) {
+      var b = { el: span, g: group, px: 0, py: 0, x: 0, y: 0, r: 0, vx: 0, vy: 0, vr: 0, held: !REDUCE, seed: rnd(), dirty: false };
+      if (b.held) { b.x = -(50 + rnd() * 90); b.y = (rnd() - .5) * 50; b.r = (rnd() - .5) * 50; span.style.opacity = '0'; apply(b); }
+      group.bits.push(b); bits.push(b);
+    }
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 1) { walk(ch); return; }
+        if (ch.nodeType !== 3) return;
+        var frag = document.createDocumentFragment();
+        ch.nodeValue.split(/(\s+)/).forEach(function (tok) {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)) { frag.appendChild(document.createTextNode(' ')); return; }
+          var w = document.createElement('span'); w.className = 'w';
+          if (letters) Array.from(tok).forEach(function (ch2) { var l = document.createElement('span'); l.className = 'l'; l.textContent = ch2; w.appendChild(l); add(l); });
+          else { w.textContent = tok; add(w); }
+          frag.appendChild(w);
+        });
+        node.replaceChild(frag, ch);
+      });
+    })(el);
+    if (letters) { el.setAttribute('aria-label', label); Array.prototype.forEach.call(el.children, function (ch) { ch.setAttribute('aria-hidden', 'true'); }); }
+    groups.push(group);
+  }
+  function release(group) {
+    if (group.released) return; group.released = true;
+    group.bits.forEach(function (b, i) { setTimeout(function () { b.held = false; b.el.style.opacity = ''; }, i * (group.letters ? 34 : 70)); });
+  }
+  function measureBits() {
+    var y0 = window.scrollY;
+    for (var i = 0; i < bits.length; i++) { var b = bits[i], r = b.el.getBoundingClientRect(); b.px = r.left + r.width / 2 - b.x; b.py = r.top + r.height / 2 + y0 - b.y; }
+  }
+  /* Yazı gerçek süreyle ilerler (küçük alt adımlarla): kare hızı düşse de harfler zamanında yerine oturur */
+  function stepBits(rdt) {
+    var gust = clamp(sV, -2600, 2600), n = Math.max(1, Math.ceil(rdt / .02)), dt = rdt / n, q;
+    for (var i = 0; i < bits.length; i++) {
+      var b = bits[i], g = b.g;
+      if (b.held || !g.vis) continue;
+      var fy = g.gust ? -gust * .22 * (.5 + b.seed) : 0, fr = g.gust ? gust * .8 * (b.seed - .5) : 0;
+      var moving = Math.abs(b.x) + Math.abs(b.y) + Math.abs(b.r) + Math.abs(b.vx) + Math.abs(b.vy) + Math.abs(b.vr) > .05 || Math.abs(fy) > 1;
+      if (!moving && !g.letters) { if (b.dirty) { b.el.style.transform = ''; b.dirty = false; b.x = b.y = b.r = 0; } continue; }
+      for (q = 0; q < n; q++) {
+        b.vx += (-42 * b.x - 7.5 * b.vx) * dt; b.vy += (-42 * b.y - 7.5 * b.vy + fy) * dt; b.vr += (-36 * b.r - 6 * b.vr + fr) * dt;
+        b.x = clamp(b.x + b.vx * dt, -160, 160); b.y = clamp(b.y + b.vy * dt, -60, 60); b.r = clamp(b.r + b.vr * dt, -40, 40);
+      }
+      if (g.letters) {
+        /* harfler rüzgârda hafifçe salınır */
+        var amp = clamp(wind.sp, 0, 1.6), ph = time * 1.5 + i * .55;
+        b.el.style.transform = 'translate(' + (b.x + Math.sin(ph * .7) * .6 * amp).toFixed(2) + 'px,' + (b.y + Math.sin(ph) * 1.5 * amp).toFixed(2) + 'px) rotate(' + (b.r + Math.sin(ph + 1) * .9 * amp).toFixed(2) + 'deg)';
+      } else apply(b);
+    }
+  }
+  function blow(pageX, pageY, vx, vy) {
+    var R = 170;
+    for (var i = 0; i < bits.length; i++) {
+      var b = bits[i]; if (b.held || !b.g.vis) continue;
+      var dx = b.px - pageX, dy = b.py - pageY, d2 = dx * dx + dy * dy;
+      if (d2 > R * R) continue;
+      var d = Math.sqrt(d2) || 1, f = 1 - d / R;
+      b.vx = clamp(b.vx + vx * .02 * f, -500, 500); b.vy = clamp(b.vy + vy * .02 * f, -500, 500);
+      b.vr = clamp(b.vr + (dx * vy - dy * vx) / d * .012 * f, -260, 260);
+    }
+  }
+
+  /* ---------- Döngü ve olaylar ---------- */
+  var running = false, raf = 0, last = 0, lastY = 0;
+  function frame(now) {
+    if (!running) return;
+    var rdt = Math.min(.5, (now - last) / 1000), dt = Math.min(.05, rdt); last = now; time += dt;
+    var y = window.scrollY, v = dt > 0 ? (y - lastY) / dt : 0; lastY = y; sY = y;
+    sV += (v - sV) * Math.min(1, dt * 9);
+    locate(); step(dt); stepBits(rdt); draw(); updateVane();
+    var kp = Math.exp(-dt * 6); ptr.vx *= kp; ptr.vy *= kp;
+    raf = requestAnimationFrame(frame);
+  }
+  function play() { if (running || REDUCE || document.hidden) return; running = true; last = performance.now(); lastY = window.scrollY; raf = requestAnimationFrame(frame); }
+  function pause() { running = false; cancelAnimationFrame(raf); }
+  function still() { sY = window.scrollY; sV = 0; locate(); wind.ang = wind.tAng; wind.sp = wind.tSp; plane.x = home.x; plane.y = home.y; plane.h = -.25; plane.bank = -.2; trail = []; draw(); updateVane(); }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-flutter]'), splitEl);
+  resize();
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        for (var i = 0; i < groups.length; i++) if (groups[i].el === e.target) { groups[i].vis = e.isIntersecting; if (e.isIntersecting && e.intersectionRatio >= .35 && i > 0) release(groups[i]); }
+      });
+    }, { threshold: [0, .35] });
+    groups.forEach(function (g) { io.observe(g.el); });
+  } else groups.forEach(function (g) { g.vis = true; release(g); });
+
+  /* açılış: başlık harfleri rüzgârla yerine konar */
+  var opened = false;
+  function open() { if (opened) return; opened = true; measure(); if (groups[0]) { groups[0].vis = true; release(groups[0]); } }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(open, 120); });
+  setTimeout(open, 900);
+
+  if (REDUCE) {
+    still();
+    var pend = false;
+    window.addEventListener('scroll', function () { if (pend) return; pend = true; requestAnimationFrame(function () { pend = false; still(); }); }, { passive: true });
+  } else {
+    draw(); play();
+    document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); else play(); });
+    var lx = null, ly = null, lt = 0;
+    window.addEventListener('pointermove', function (e) {
+      var now = performance.now(), vx = 0, vy = 0;
+      if (lx !== null) { var d = Math.max(8, now - lt) / 1000; vx = clamp((e.clientX - lx) / d, -3000, 3000); vy = clamp((e.clientY - ly) / d, -3000, 3000); }
+      lx = e.clientX; ly = e.clientY; lt = now;
+      ptr.x = e.clientX; ptr.y = e.clientY; ptr.vx = vx; ptr.vy = vy; ptr.on = true;
+      if (plane) {
+        var dx = plane.x - ptr.x, dy = plane.y - ptr.y, dist = Math.hypot(dx, dy);
+        if (dist < 190) {
+          var f = 1 - dist / 190;
+          gx = clamp(gx + vx * .05 * f, -260, 260); gy = clamp(gy + vy * .05 * f, -260, 260);
+          plane.w = clamp(plane.w + (vx * -Math.sin(plane.h) + vy * Math.cos(plane.h)) * .0016 * f, -2.6, 2.6);
+          wob = Math.min(1.3, wob + Math.hypot(vx, vy) * .0009 * f);
+        }
+      }
+      blow(e.clientX, e.clientY + window.scrollY, vx, vy);
+    }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', function () { ptr.on = false; lx = null; });
+    window.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a, button')) return; puff(e.clientX, e.clientY); });
+  }
+  var rt = 0;
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { resize(); measure(); if (REDUCE) still(); }, 120); });
+  window.addEventListener('load', function () { measure(); if (REDUCE) still(); });
+  if ('ResizeObserver' in window) new ResizeObserver(function () { measure(); }).observe(document.querySelector('.site'));
+})();
+</script>
