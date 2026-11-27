@@ -1,0 +1,7 @@
+# Yalnızca yayınlanan dosyalar depoya girer. Notlar, taslaklar ve ekran görüntüleri yerelde kalır.
+.claude/
+ekran-goruntuleri/
+*.md
+konseptler.html
+index-karanlik-oda.html
+.DS_Store
